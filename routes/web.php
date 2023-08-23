@@ -15,6 +15,18 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function () {
+    //ini route khusus untuk operator
+});
+
+Route::prefix('wali')->middleware(['auth', 'auth.wali'])->group(function () {
+    //ini route khusus untuk wali-murid
+});
+
+Route::get('logout', function () {
+    Auth::logout();
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
