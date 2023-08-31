@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User as Model;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -28,7 +29,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'model' =>  new User(),
+            'method' => 'POST',
+            'route' => 'user.store',
+            'button' => 'SIMPAN',
+        ];
+
+        return view('operator.user_form', $data);
     }
 
     /**
