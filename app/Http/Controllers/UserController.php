@@ -47,7 +47,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'nohp' => 'required|unique:users',
+                'akses' => 'required|in:operator,admin',
+                'password' => 'required',
+            ]
+        );
+        $requestData['password'] = bcrypt($requestData['password']);
+        $requestData['email_verified_at'] = now();
+        Model::create($requestData);
+        flash('Data berhasil disimpan')->success();
+        return back(); 
     }
 
     /**

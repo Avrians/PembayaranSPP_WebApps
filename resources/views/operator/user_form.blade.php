@@ -39,6 +39,13 @@
                             <strong>{{ $errors->first('akses') }}</strong>
                         </span>
                     </div>
+                    <div class="form-group mt-3">
+                        <label for="password">Password</label>
+                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    </div>
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
                     {!! Form::close() !!}
                 </div>
