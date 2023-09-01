@@ -8,7 +8,38 @@
 
                 <div class="card-body">
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
-
+                    <div class="form-group">
+                        <label for="name">Nama</label>
+                        {!! Form::text('name', null, ['class' => 'form-control', 'autofocus']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="email">Email</label>
+                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="nohp">No HP</label>
+                        {!! Form::text('nohp', null, ['class' => 'form-control']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('nohp') }}</strong>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="akses">Hak Akses</label>
+                        {!! Form::select('akses', [
+                            'operator' => 'Operator Sekolah',
+                            'admin' => 'Administrator',
+                        ], null, ['class' => 'form-control']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('akses') }}</strong>
+                        </span>
+                    </div>
+                    {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
