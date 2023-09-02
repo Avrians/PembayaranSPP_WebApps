@@ -60,7 +60,7 @@ class UserController extends Controller
         $requestData['email_verified_at'] = now();
         Model::create($requestData);
         flash('Data berhasil disimpan')->success();
-        return back(); 
+        return back();
     }
 
     /**
@@ -82,7 +82,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'model' =>  User::findOrFail($id),
+            'method' => 'PUT',
+            'route' => ['user.update', $id],
+            'button' => 'UPDATE',
+        ];
+
+        return view('operator.user_form', $data);
     }
 
     /**
@@ -94,7 +101,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'nohp' => 'required|unique:users,nohp,' . $id,
+                'akses' => 'required|in:operator,admin',
+                'password' => 'nullable',
+            ]
+        );
+        $model = Model::findOrFail($id);
+        if ($requestData['password'] == "") {
+            unset($requestData['password']);
+        } else {
+            $requestData['password'] = bcrypt($requestData['password']);
+        }
+        $model->fill($requestData);
+        $model->save();
+        flash('Data berhasil diubah')->success();
+        return redirect()->route('user.index');
     }
 
     /**
@@ -105,6 +130,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Model::findOrFail($id);
+
+        if ($model->id == 1) {
+            flash('Data tidak bisa dihapus')->error();
+            return back();
+        }
+        $model->delete();
+        flash('Data berhasil dihapus')->success();
+        return back();
     }
 }
