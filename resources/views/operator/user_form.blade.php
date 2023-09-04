@@ -29,16 +29,28 @@
                             <strong>{{ $errors->first('nohp') }}</strong>
                         </span>
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="akses">Hak Akses</label>
-                        {!! Form::select('akses', [
-                            'operator' => 'Operator Sekolah',
-                            'admin' => 'Administrator',
-                        ], null, ['class' => 'form-control']) !!}
-                        <span class="text-danger">
-                            <strong>{{ $errors->first('akses') }}</strong>
-                        </span>
-                    </div>
+
+                    @if (\Route::is('user.create'))
+                        <div class="form-group mt-3">
+                            <label for="akses">Hak Akses</label>
+                            {!! Form::select(
+                                'akses',
+                                [
+                                    'operator' => 'Operator Sekolah',
+                                    'admin' => 'Administrator',
+                                    'wali' => 'Wali Murid',
+                                ],
+                                null,
+                                ['class' => 'form-control'],
+                            ) !!}
+                            <span class="text-danger">
+                                <strong>{{ $errors->first('akses') }}</strong>
+                            </span>
+                        </div>
+                    @endif
+
+
+
                     <div class="form-group mt-3">
                         <label for="password">Password</label>
                         {!! Form::password('password', ['class' => 'form-control']) !!}

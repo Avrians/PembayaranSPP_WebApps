@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class WaliController extends Controller
 {
     private $viewIndex = 'user_index';
-    private $viewForm = 'user_form';
-    private $viewEdit = 'user_edit';
+    private $viewCreate = 'user_form';
+    private $viewEdit = 'user_form';
     private $viewShow = 'user_show';
     private $routePrefix = 'wali';
     /**
@@ -44,7 +44,7 @@ class WaliController extends Controller
 
         ];
 
-        return view('operator.' . $this->viewForm, $data);
+        return view('operator.' . $this->viewCreate, $data);
     }
 
     /**
@@ -60,12 +60,12 @@ class WaliController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'nohp' => 'required|unique:users',
-                'akses' => 'required|in:operator,admin',
                 'password' => 'required',
             ]
         );
         $requestData['password'] = bcrypt($requestData['password']);
         $requestData['email_verified_at'] = now();
+        $requestData['akses'] = 'wali';
         Model::create($requestData);
         flash('Data berhasil disimpan')->success();
         return back();
@@ -95,6 +95,7 @@ class WaliController extends Controller
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'UPDATE',
+            'title' => 'Form Data Wali Murid',
         ];
 
         return view('operator.' . $this->viewEdit, $data);
@@ -114,7 +115,6 @@ class WaliController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,' . $id,
                 'nohp' => 'required|unique:users,nohp,' . $id,
-                'akses' => 'required|in:operator,admin',
                 'password' => 'nullable',
             ]
         );
@@ -127,7 +127,7 @@ class WaliController extends Controller
         $model->fill($requestData);
         $model->save();
         flash('Data berhasil diubah')->success();
-        return redirect()->route('user.index');
+        return back();
     }
 
     /**
@@ -138,14 +138,10 @@ class WaliController extends Controller
      */
     public function destroy($id)
     {
-        $model = Model::findOrFail($id);
-
-        if ($model->id == 1) {
-            flash('Data tidak bisa dihapus')->error();
-            return back();
-        }
+        $model = Model::where('akses', 'wali')->findOrFail($id);
         $model->delete();
         flash('Data berhasil dihapus')->success();
-        return back();
+        return back(); 
     }
 }
+ 

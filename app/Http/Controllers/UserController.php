@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     private $viewIndex = 'user_index';
-    private $viewForm = 'user_form';
-    private $viewEdit = 'user_edit';
+    private $viewCreate = 'user_form';
+    private $viewEdit = 'user_form';
     private $viewShow = 'user_show';
     private $routePrefix = 'user';
     /**
@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $data = [
-            'models' => Model::where('akses',  'wali')->latest()->paginate(50),
+            'models' => Model::where('akses', '<>' ,'wali')->latest()->paginate(50),
             'routePrefix' => $this->routePrefix,
             'title' => 'Data User',
         ];
@@ -41,10 +41,10 @@ class UserController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'SIMPAN',
-            'title' => 'Form Data User',
+            'title' => 'Form Data User', 
         ];
 
-        return view('operator.' . $this->viewForm, $data);
+        return view('operator.' . $this->viewCreate, $data);
     }
 
     /**
@@ -95,6 +95,7 @@ class UserController extends Controller
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'UPDATE',
+            'title' => 'Form Data User', 
         ];
 
         return view('operator.' . $this->viewEdit, $data);
