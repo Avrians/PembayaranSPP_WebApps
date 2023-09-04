@@ -23,7 +23,7 @@
   <head>
     <meta charset="utf-8" />
     <meta
-      name="viewport"   
+      name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
@@ -154,6 +154,14 @@
               <a href="{{ route('user.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Data User</div>
+              </a>
+            </li>
+
+
+            <li class="menu-item {{ \Route::is('wali.*') ? 'active' : '' }}">
+              <a href="{{ route('wali.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Wali Murid</div>
               </a>
             </li>
 

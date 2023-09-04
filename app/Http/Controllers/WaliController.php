@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User as Model;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 
-class UserController extends Controller
+class WaliController extends Controller
 {
     private $viewIndex = 'user_index';
     private $viewForm = 'user_form';
     private $viewEdit = 'user_edit';
     private $viewShow = 'user_show';
-    private $routePrefix = 'user';
+    private $routePrefix = 'wali';
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +23,7 @@ class UserController extends Controller
         $data = [
             'models' => Model::where('akses',  'wali')->latest()->paginate(50),
             'routePrefix' => $this->routePrefix,
-            'title' => 'Data User',
+            'title' => 'Data Wali Murid',
         ];
         return view('operator.' . $this->viewIndex, $data);
     }
@@ -41,7 +40,8 @@ class UserController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'SIMPAN',
-            'title' => 'Form Data User',
+            'title' => 'Form Data Wali Murid',
+
         ];
 
         return view('operator.' . $this->viewForm, $data);

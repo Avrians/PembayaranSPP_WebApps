@@ -4,10 +4,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Data User</h5>
+                <h5 class="card-header">{{ $title }}</h5>
 
                 <div class="card-body">
-                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                    <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -30,11 +30,12 @@
                                         <td>{{ $item->akses }}</td>
                                         <td>
                                             {!! Form::open([
-                                                'route' => ['user.destroy', $item->id],
+                                                'route' => [$routePrefix . '.destroy', $item->id],
                                                 'method' => 'delete',
                                                 'onsubmit' => 'return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini?\')',
                                             ]) !!}
-                                            <a href="{{ route('user.edit', $item->id) }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route($routePrefix . '.edit', $item->id) }}"
+                                                class="btn btn-sm btn-warning">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
                                             <button type="submit" class="btn btn-sm btn-danger">
