@@ -7,7 +7,11 @@
                 <h5 class="card-header">{{ $title }}</h5>
 
                 <div class="card-body">
-                    {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
+                    {!! Form::model($model, [
+                        'route' => $route,
+                        'method' => $method,
+                        'files' => true,
+                    ]) !!}
                     <div class="form-group">
                         <label for="wali_id">Wali Murid</label>
                         {!! Form::select('wali_id', $wali, null, ['class' => 'form-control']) !!}
@@ -58,6 +62,14 @@
                         {!! Form::selectRange('angkatan', 2021, date('Y') + 1, null, ['class' => 'form-control']) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('angkatan') }}</strong>
+                        </span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="foto">Foto <b>(Format: jpg, jpeg, png. Ukuran Maks: 5MB)</b></label>
+                        {!! Form::file('foto', ['class' => 'form-control', 'accept' => 'image/*']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('foto') }}</strong>
                         </span>
                     </div>
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
