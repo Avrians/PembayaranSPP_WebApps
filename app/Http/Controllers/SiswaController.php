@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa as Model;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Siswa as Model;
 
 
 class SiswaController extends Controller
@@ -40,7 +41,8 @@ class SiswaController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'SIMPAN',
-            'title' => 'Form Data Wali Murid',
+            'title' => 'Form Data Siswa',
+            'wali' => User::where('akses', 'wali')->pluck('name', 'id'),
 
         ];
 
