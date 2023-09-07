@@ -65,6 +65,9 @@
     <script src="{{ asset('sneat') }}/assets/js/config.js"></script>
 
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+
+    {{-- select2 --}}
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
   </head>
 
   <body>
@@ -378,5 +381,13 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    {{-- select2 --}}
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
   </body>
 </html>

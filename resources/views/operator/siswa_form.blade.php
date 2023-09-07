@@ -14,7 +14,7 @@
                     ]) !!}
                     <div class="form-group">
                         <label for="wali_id">Wali Murid</label>
-                        {!! Form::select('wali_id', $wali, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('wali_id', $wali, null, ['class' => 'form-control select2']) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('wali_id') }}</strong>
                         </span>
