@@ -59,15 +59,24 @@ class SiswaController extends Controller
     {
         $requestData = $request->validate(
             [
-                'name' => 'required',
-                'email' => 'required|email|unique:users',
-                'nohp' => 'required|unique:users',
-                'password' => 'required',
+                'wali_id' => 'nullable',
+                'nama' => 'required',
+                'nisn' => 'required|unique:siswas',
+                'jurusan' => 'required',
+                'kelas' => 'required',
+                'angkatan' => 'required',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             ]
         );
-        $requestData['password'] = bcrypt($requestData['password']);
-        $requestData['email_verified_at'] = now();
-        $requestData['akses'] = 'wali';
+
+        if ($request->hasFile('foto')) {
+            $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
+        }
+
+        if ($request->filled('wali_id')) {
+            $requestData['wali_status'] = 'ok';
+        }
+        $requestData['user_id'] = auth()->user()->id;
         Model::create($requestData);
         flash('Data berhasil disimpan')->success();
         return back();
@@ -143,7 +152,6 @@ class SiswaController extends Controller
         $model = Model::where('akses', 'wali')->findOrFail($id);
         $model->delete();
         flash('Data berhasil dihapus')->success();
-        return back(); 
+        return back();
     }
 }
- 

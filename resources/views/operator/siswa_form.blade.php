@@ -13,8 +13,11 @@
                         'files' => true,
                     ]) !!}
                     <div class="form-group">
-                        <label for="wali_id">Wali Murid</label>
-                        {!! Form::select('wali_id', $wali, null, ['class' => 'form-control select2']) !!}
+                        <label for="wali_id">Wali Murid (optional) </label>
+                        {!! Form::select('wali_id', $wali, null, [
+                            'class' => 'form-control select2',
+                            'placeholder' => 'Pilih Wali Murid',
+                        ]) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('wali_id') }}</strong>
                         </span>
