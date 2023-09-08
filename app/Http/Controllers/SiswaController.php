@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Siswa as Model;
-
+use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -125,18 +125,28 @@ class SiswaController extends Controller
     {
         $requestData = $request->validate(
             [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email,' . $id,
-                'nohp' => 'required|unique:users,nohp,' . $id,
-                'password' => 'nullable',
+                'wali_id' => 'nullable',
+                'nama' => 'required',
+                'nisn' => 'required|unique:siswas,nisn,' . $id,
+                'jurusan' => 'required',
+                'kelas' => 'required',
+                'angkatan' => 'required',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             ]
         );
         $model = Model::findOrFail($id);
-        if ($requestData['password'] == "") {
-            unset($requestData['password']);
-        } else {
-            $requestData['password'] = bcrypt($requestData['password']);
+
+        if ($request->hasFile('foto')) {
+            Storage::delete($model->foto);
+            $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
         }
+
+        if ($request->filled('wali_id')) {
+            $requestData['wali_status'] = 'ok';
+        }
+
+        $requestData['user_id'] = auth()->user()->id;
+
         $model->fill($requestData);
         $model->save();
         flash('Data berhasil diubah')->success();
@@ -151,7 +161,7 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        $model = Model::where('akses', 'wali')->findOrFail($id);
+        $model = Model::findOrFail($id);
         $model->delete();
         flash('Data berhasil dihapus')->success();
         return back();
