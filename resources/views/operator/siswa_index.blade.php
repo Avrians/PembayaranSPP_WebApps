@@ -42,6 +42,10 @@
                                                 class="btn btn-sm btn-warning">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
+                                            <a href="{{ route($routePrefix . '.show', $item->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                <i class="fa fa-edit"></i> Detail
+                                            </a>
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash"></i> Hapus
                                             </button>
