@@ -106,7 +106,9 @@ class SiswaController extends Controller
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'UPDATE',
-            'title' => 'Form Data Wali Murid',
+            'title' => 'Form Data Siswa',
+            'wali' => User::where('akses', 'wali')->pluck('name', 'id'),
+
         ];
 
         return view('operator.' . $this->viewEdit, $data);

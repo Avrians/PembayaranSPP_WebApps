@@ -68,6 +68,11 @@
                         </span>
                     </div>
 
+                    @if ($model->foto != null)
+                        <div class="m-3">
+                            <img src="{{ \Storage::url($model->foto) }}" alt="" width="200" class="img-thumbnail">
+                        </div>
+                    @endif
                     <div class="form-group mt-3">
                         <label for="foto">Foto <b>(Format: jpg, jpeg, png. Ukuran Maks: 5MB)</b></label>
                         {!! Form::file('foto', ['class' => 'form-control', 'accept' => 'image/*']) !!}
