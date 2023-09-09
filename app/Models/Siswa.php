@@ -12,6 +12,12 @@ class Siswa extends Model
     use HasFactory;
     use SearchableTrait;
     protected $guarded = [];
+    protected $searchable = [
+        'columns' => [
+            'nama' => 10,
+            'nisn' => 10,
+        ],
+    ];
 
     public function user(): BelongsTo
     {
