@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Siswa extends Model
 {
     use HasFactory;
+    use SearchableTrait;
     protected $guarded = [];
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

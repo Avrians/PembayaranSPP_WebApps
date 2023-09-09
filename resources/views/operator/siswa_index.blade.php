@@ -8,6 +8,15 @@
 
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                    {!! Form::open(['route' => $routePrefix . '.index', 'method'=> 'GET']) !!}
+                    <div class="input-group">
+                        <input name="q" type="text" class="form-control" placeholder="Cari Nama Siswa"
+                            aria-label="Cari Nama Siswa" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                            <i class="bx bx-search"></i>
+                        </button>
+                    </div>
+                    {!! Form::close() !!}
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
