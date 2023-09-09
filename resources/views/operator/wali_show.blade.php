@@ -36,6 +36,25 @@
                                 </tr>
                             </thead>
                         </table>
+                        <h5 class="my-3">Data Murid</h5>
+                        <table class="table table-light">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nisn</th>
+                                    <th>Nama</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($model->siswa as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->nisn }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
