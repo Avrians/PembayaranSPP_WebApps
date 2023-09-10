@@ -37,7 +37,8 @@
                             </thead>
                         </table>
                         <h5 class="my-3">Tambah Data Murid</h5>
-                        {!! Form::open() !!}
+                        {!! Form::open(['route' => 'walisiswa.store', 'method' => 'POST']) !!}
+                        {!! Form::hidden('wali_id', $model->id, []) !!}
                         <div class="form-group">
                             <label for="siswa_id">Pilih Data Siswa</label>
                             {!! Form::select('siswa_id', $siswa, null, ['class' => 'form-control select2']) !!}
