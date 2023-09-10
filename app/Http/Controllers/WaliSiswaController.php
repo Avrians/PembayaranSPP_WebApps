@@ -39,13 +39,13 @@ class WaliSiswaController extends Controller
         $requestData = $request->validate(
             [
                 'siswa_id' => 'required',
-                'wali_id' => 'required',
+                'wali_id' => 'required|exists:users,id',
             ],
             [
                 'siswa_id.required' => 'Siswa harus diisi',
                 'wali_id.required' => 'Wali harus diisi',
             ]
-        );  
+        );
         $wali = User::find($requestData['wali_id']);
         $siswa = Siswa::find($requestData['siswa_id']);
         $siswa->wali_id = $wali->id;
@@ -53,7 +53,6 @@ class WaliSiswaController extends Controller
         $siswa->save();
         flash('Data sudah disimpan')->success();
         return back();
-
     }
 
     /**
