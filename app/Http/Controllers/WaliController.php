@@ -80,7 +80,7 @@ class WaliController extends Controller
      */
     public function show($id)
     {
-        $model = Model::wali()->where('id', $id)->firstOrFail();
+        $model = Model::with('siswa')->wali()->where('id', $id)->firstOrFail();
         return view('operator.' . $this->viewShow, [
             'siswa' => Siswa::whereNotIn('wali_id', [$id])->pluck('nama', 'id'),
             'model' => $model,
