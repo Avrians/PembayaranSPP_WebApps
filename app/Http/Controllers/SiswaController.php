@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Siswa as Model;
-use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\AssignOp\Mod;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreSiswaRequest;
 
 class SiswaController extends Controller
 {
@@ -63,19 +64,10 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSiswaRequest $request)
     {
-        $requestData = $request->validate(
-            [
-                'wali_id' => 'nullable',
-                'nama' => 'required',
-                'nisn' => 'required|unique:siswas',
-                'jurusan' => 'required',
-                'kelas' => 'required',
-                'angkatan' => 'required',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
-            ]
-        );
+        $requestData = $request->validated();
+        dd($requestData);
 
         if ($request->hasFile('foto')) {
             $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
