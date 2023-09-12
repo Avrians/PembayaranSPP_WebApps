@@ -8,6 +8,7 @@ use App\Models\Siswa as Model;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 
 class SiswaController extends Controller
 {
@@ -67,7 +68,6 @@ class SiswaController extends Controller
     public function store(StoreSiswaRequest $request)
     {
         $requestData = $request->validated();
-        dd($requestData);
 
         if ($request->hasFile('foto')) {
             $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
@@ -124,19 +124,9 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSiswaRequest $request, $id)
     {
-        $requestData = $request->validate(
-            [
-                'wali_id' => 'nullable',
-                'nama' => 'required',
-                'nisn' => 'required|unique:siswas,nisn,' . $id,
-                'jurusan' => 'required',
-                'kelas' => 'required',
-                'angkatan' => 'required',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
-            ]
-        );
+        $requestData = $request->validated();
         $model = Model::findOrFail($id);
 
         if ($request->hasFile('foto')) {
