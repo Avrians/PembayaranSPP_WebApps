@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliController;
+use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\WaliSiswaController;
 use App\Http\Controllers\BerandaWaliController;
@@ -28,6 +29,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('wali', WaliController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('walisiswa', WaliSiswaController::class);
+    Route::resource('biaya', BiayaController::class);
 });
 
 Route::prefix('walimurid')->middleware(['auth', 'auth.wali'])->group(function () {
