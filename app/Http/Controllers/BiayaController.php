@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Biaya as Model;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\StoreSiswaRequest;
-use App\Http\Requests\UpdateSiswaRequest;
+use App\Http\Requests\StoreBiayaRequest;
+use App\Http\Requests\UpdateBiayaRequest;
 
 class BiayaController extends Controller
 {
@@ -51,8 +51,7 @@ class BiayaController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'SIMPAN',
-            'title' => 'Form Data Siswa',
-            'wali' => User::where('akses', 'wali')->pluck('name', 'id'),
+            'title' => 'Form Data Biaya',
 
         ];
 
@@ -65,17 +64,10 @@ class BiayaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSiswaRequest $request)
+    public function store(StoreBiayaRequest $request)
     {
         $requestData = $request->validated();
 
-        if ($request->hasFile('foto')) {
-            $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
-        }
-
-        if ($request->filled('wali_id')) {
-            $requestData['wali_status'] = 'ok';
-        }
         $requestData['user_id'] = auth()->user()->id;
         Model::create($requestData);
         flash('Data berhasil disimpan')->success();
@@ -109,8 +101,7 @@ class BiayaController extends Controller
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'UPDATE',
-            'title' => 'Form Data Siswa',
-            'wali' => User::where('akses', 'wali')->pluck('name', 'id'),
+            'title' => 'Form Data Biaya',
 
         ];
 
@@ -124,19 +115,10 @@ class BiayaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSiswaRequest $request, $id)
+    public function update(UpdateBiayaRequest $request, $id)
     {
         $requestData = $request->validated();
         $model = Model::findOrFail($id);
-
-        if ($request->hasFile('foto')) {
-            Storage::delete($model->foto);
-            $requestData['foto'] = $request->file('foto')->store('public/foto_siswa');
-        }
-
-        if ($request->filled('wali_id')) {
-            $requestData['wali_status'] = 'ok';
-        }
 
         $requestData['user_id'] = auth()->user()->id;
 

@@ -10,4 +10,9 @@ class Biaya extends Model
     use HasFactory;
     // protected $table = 'biaya';
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
