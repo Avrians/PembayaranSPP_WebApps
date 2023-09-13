@@ -395,10 +395,12 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+          $('.rupiah').mask("#.##0", {reverse: true});
             $('.select2').select2();
         });
     </script>
