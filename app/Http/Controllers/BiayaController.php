@@ -66,10 +66,8 @@ class BiayaController extends Controller
      */
     public function store(StoreBiayaRequest $request)
     {
-        $requestData = $request->validated();
 
-        $requestData['user_id'] = auth()->user()->id;
-        Model::create($requestData);
+        Model::create($request->validated());
         flash('Data berhasil disimpan')->success();
         return back();
     }
@@ -119,8 +117,6 @@ class BiayaController extends Controller
     {
         $requestData = $request->validated();
         $model = Model::findOrFail($id);
-
-        $requestData['user_id'] = auth()->user()->id;
 
         $model->fill($requestData);
         $model->save();
