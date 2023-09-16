@@ -4,18 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
+use App\Models\Tagihan as Model;
 use App\Models\Tagihan;
+use Illuminate\Http\Request;
 
 class TagihanController extends Controller
 {
+    private $viewIndex = 'tagihan_index';
+    private $viewCreate = 'tagihan_form';
+    private $viewEdit = 'tagihan_form';
+    private $viewShow = 'tagihan_show';
+    private $routePrefix = 'tagihan';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->filled('q')) {
+            $models = Model::with('user', 'siswa')->search($request->q)->paginate(50);
+        } else {
+            $models = Model::with('user', 'siswa')->latest()->paginate(50);
+        }
+
+
+        $data = [
+            'models' => $models,
+            'routePrefix' => $this->routePrefix,
+            'title' => 'Data Tagihan',
+        ];
+        return view('operator.' . $this->viewIndex, $data);
     }
 
     /**

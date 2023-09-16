@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliController;
 use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\WaliSiswaController;
 use App\Http\Controllers\BerandaWaliController;
 use App\Http\Controllers\BerandaOperatorController;
@@ -30,6 +31,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('siswa', SiswaController::class);
     Route::resource('walisiswa', WaliSiswaController::class);
     Route::resource('biaya', BiayaController::class);
+    Route::resource('tagihan', TagihanController::class);
 });
 
 Route::prefix('walimurid')->middleware(['auth', 'auth.wali'])->group(function () {
