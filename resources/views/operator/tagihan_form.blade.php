@@ -13,23 +13,37 @@
                     ]) !!}
                     <div class="form-group mt-1">
                         <label for="angkatan">Tagihan Untuk Angkatan</label>
-                        {!! Form::select('angkatan', $angkatan, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('angkatan', $angkatan, null, ['class' => 'form-control', 'placeholder' => 'Pilih Angaktan']) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('angkatan') }}</strong>
                         </span>
                     </div>
                     <div class="form-group mt-3">
                         <label for="kelas">Tagihan Untuk Kelas</label>
-                        {!! Form::select('kelas', $kelas, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('kelas', $kelas, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('kelas') }}</strong>
                         </span>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="jumlah">Jumlah / Nominal</label>
-                        {!! Form::text('jumlah', null, ['class' => 'form-control rupiah']) !!}
+                        <label for="tanggal_tagihan">Tanggal Tagihan</label>
+                        {!! Form::date('tanggal_tagihan', $model->tanggal_tagihan ?? date('Y-m-d'), ['class' => 'form-control']) !!}
                         <span class="text-danger">
-                            <strong>{{ $errors->first('jumlah') }}</strong>
+                            <strong>{{ $errors->first('tanggal_tagihan') }}</strong>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="tanggal_jatuh_tempo">Tanggal Jatuh Tempo</label>
+                        {!! Form::date('tanggal_jatuh_tempo', $model->tanggal_jatuh_tempo ?? date('Y-m-d'), ['class' => 'form-control']) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('tanggal_jatuh_tempo') }}</strong>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="keterangan">Keterangan</label>
+                        {!! Form::textarea('keterangan', null, ['class' => 'form-control', 'rows' => 3]) !!}
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('keterangan') }}</strong>
                         </span>
                     </div>
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
