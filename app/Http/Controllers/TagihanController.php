@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
+use App\Models\Siswa;
 use App\Models\Tagihan as Model;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
@@ -44,7 +45,19 @@ class TagihanController extends Controller
      */
     public function create()
     {
-        //
+        $siswa = Siswa::all();
+        $data = [
+            'model' =>  new Model(),
+            'method' => 'POST',
+            'route' => $this->routePrefix . '.store',
+            'button' => 'SIMPAN',
+            'title' => 'Form Data Tagihan',
+            'angkatan' => $siswa->pluck('angkatan', 'angkatan'),
+            'kelas' => $siswa->pluck('kelas', 'kelas'),
+
+        ];
+
+        return view('operator.' . $this->viewCreate, $data);
     }
 
     /**
