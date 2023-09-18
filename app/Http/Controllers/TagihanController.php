@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
+use App\Models\Biaya;
 use App\Models\Siswa;
 use App\Models\Tagihan as Model;
 use App\Models\Tagihan;
@@ -54,7 +55,7 @@ class TagihanController extends Controller
             'title' => 'Form Data Tagihan',
             'angkatan' => $siswa->pluck('angkatan', 'angkatan'),
             'kelas' => $siswa->pluck('kelas', 'kelas'),
-
+            'biaya' => Biaya::pluck('nama', 'id'),
         ];
 
         return view('operator.' . $this->viewCreate, $data);
