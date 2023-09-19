@@ -11,14 +11,26 @@
                         'route' => $route,
                         'method' => $method,
                     ]) !!}
-                    <div class="form-group mt-1">
+                    {{-- <div class="form-group mt-1">
                         <label for="biaya_id">Biaya Yang Ditagihkan </label>
                         {!! Form::select('biaya_id', $biaya, null, ['class' => 'form-control', 'multiple' => true]) !!}
                         <span class="text-danger">
                             <strong>{{ $errors->first('biaya_id') }}</strong>
                         </span>
-                    </div>
-                    <div class="form-group mt-1">
+                    </div> --}}
+                    @foreach ($biaya as $item)
+                        .<div class="form-check">
+                            {!! Form::checkbox('biaya_id[]', $item->id, null, [
+                                'class' => 'form-check-input',
+                                'id' => 'defaultCheck' . $loop->iteration,
+                            ]) !!}
+                            <label for="defaultCheck{{ $loop->iteration }}" class="form-check-label">
+                                {{ $item->nama_biaya_full }}
+                            </label>
+                        </div>
+                    @endforeach
+
+                    <div class="form-group mt-3">
                         <label for="angkatan">Tagihan Untuk Angkatan</label>
                         {!! Form::select('angkatan', $angkatan, null, ['class' => 'form-control', 'placeholder' => 'Pilih Angaktan']) !!}
                         <span class="text-danger">
