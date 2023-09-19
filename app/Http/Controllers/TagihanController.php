@@ -69,7 +69,14 @@ class TagihanController extends Controller
      */
     public function store(StoreTagihanRequest $request)
     {
-        //
+        // 1. lakukan validasi
+        // 2. ambil data biaya yang ditagihkan
+        // 3. ambil data siswa yang ditagihkan berdasarkan kelas atau berdasarkan angkatan
+        // 4. lakukan berdasarkan data siswa
+        // 5. didalam perulangan, simpan tagihan berdasarkan biaya dan siswa
+        // 6. simpan notifikasi database untuk tagihan
+        // 7. kirim pesan whatsapp
+        // 8. redirect back() dengan pesan sukses
     }
 
     /**

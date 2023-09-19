@@ -18,11 +18,12 @@
                             <strong>{{ $errors->first('biaya_id') }}</strong>
                         </span>
                     </div> --}}
+                    <label>Tagihan Untuk </label>
                     @foreach ($biaya as $item)
-                        .<div class="form-check">
+                        <div class="form-check mt-3">
                             {!! Form::checkbox('biaya_id[]', $item->id, null, [
                                 'class' => 'form-check-input',
-                                'id' => 'defaultCheck' . $loop->iteration,
+                                'id' => 'defaultCheck'.$loop->iteration,
                             ]) !!}
                             <label for="defaultCheck{{ $loop->iteration }}" class="form-check-label">
                                 {{ $item->nama_biaya_full }}
