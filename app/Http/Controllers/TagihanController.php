@@ -69,6 +69,8 @@ class TagihanController extends Controller
      */
     public function store(StoreTagihanRequest $request)
     {
+        $requestData = $request->validated();
+        dd($requestData);
         // 1. lakukan validasi
         // 2. ambil data biaya yang ditagihkan
         // 3. ambil data siswa yang ditagihkan berdasarkan kelas atau berdasarkan angkatan
