@@ -89,7 +89,26 @@ class TagihanController extends Controller
             $siswa->where('angkatan', $requestData['angkatan']);
         }
         $siswa = $siswa->get();
-        dd($siswa);      
+
+        foreach($siswa as $item) {
+            $itemSiswa = $item;
+            $biaya = Biaya::whereIn('id', $biayaIdArray)->get();
+            foreach($biaya as $itemBiaya) {
+                $dataTagihan = [
+                    'siswa_id' => $itemSiswa->id,
+                    'angkatan' => $requestData['angkatan'],
+                    'kelas' => $requestData['kelas'],
+                    'tanggal_tagihan' => $requestData['tanggal_tagihan'],
+                    'tanggal_jatuh_tempo' => $requestData['tanggal_jatuh_tempo'],
+                    'nama_biaya' => $itemBiaya->nama,
+                    'jumlah_biaya' => $itemBiaya->jumlah,
+                    'keterangan' => $requestData['keterangan'],
+                    'status' => 'Baru',
+                ];
+                print_r($dataTagihan);
+                echo "<br>";
+            }
+        }
     }
 
     /**
