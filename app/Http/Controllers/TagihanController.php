@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTagihanRequest;
-use App\Http\Requests\UpdateTagihanRequest;
+use Carbon\Carbon;
 use App\Models\Biaya;
 use App\Models\Siswa;
-use App\Models\Tagihan as Model;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
+use App\Models\Tagihan as Model;
+use App\Http\Requests\StoreTagihanRequest;
+use App\Http\Requests\UpdateTagihanRequest;
 
 class TagihanController extends Controller
 {
@@ -105,10 +106,22 @@ class TagihanController extends Controller
                     'keterangan' => $requestData['keterangan'],
                     'status' => 'Baru',
                 ];
-                print_r($dataTagihan);
-                echo "<br>";
-            }
+                $tanggalJatuhTempo = Carbon::parse($requestData['tanggal_jatuh_tempo']);
+                $tanggaalTagihan = Carbon::parse($requestData['tanggal_tagihan']);
+                $bulanTagihan = $tanggaalTagihan->format('m');
+                $tahunTagihan = $tanggaalTagihan->format('Y');
+                $cekTagihan = Model::where('siswa_id', $itemSiswa->id)
+                    ->whereMonth('tanggal_tagihan', $bulanTagihan)
+                    ->whereYear('tanggal_tagihan', $tahunTagihan)
+                    ->first();
+                if ($cekTagihan == null) {
+                    Model::create($dataTagihan);
+                }
+            }   
         }
+
+        flash('Data tagihan berhasil disimpan')->success();
+        return back();
     }
 
     /**
