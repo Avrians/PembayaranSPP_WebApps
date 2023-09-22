@@ -69,8 +69,6 @@ class TagihanController extends Controller
      */
     public function store(StoreTagihanRequest $request)
     {
-        $requestData = $request->validated();
-        dd($requestData);
         // 1. lakukan validasi
         // 2. ambil data biaya yang ditagihkan
         // 3. ambil data siswa yang ditagihkan berdasarkan kelas atau berdasarkan angkatan
@@ -79,6 +77,19 @@ class TagihanController extends Controller
         // 6. simpan notifikasi database untuk tagihan
         // 7. kirim pesan whatsapp
         // 8. redirect back() dengan pesan sukses
+
+        $requestData = $request->validated();
+        $biayaIdArray = $requestData['biaya_id'];
+        $siswa = Siswa::query();
+        
+        if ($requestData['kelas'] != '') {
+            $siswa->where('kelas', $requestData['kelas']);
+        } 
+        if ($requestData['angkatan'] != '') {
+            $siswa->where('angkatan', $requestData['angkatan']);
+        }
+        $siswa = $siswa->get();
+        dd($siswa);      
     }
 
     /**
