@@ -20,4 +20,15 @@ class Tagihan extends Model
     {
         return $this->belongsTo(Siswa::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($tagihan) {
+            $tagihan->user_id = auth()->id();
+        });
+
+        static::updating(function ($tagihan) {
+            $tagihan->user_id = auth()->id();
+        });
+    }
 }
