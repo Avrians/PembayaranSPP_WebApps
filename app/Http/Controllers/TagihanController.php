@@ -25,12 +25,8 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->filled('q')) {
-            $models = Model::with('user', 'siswa')->search($request->q)->paginate(50);
-        } else {
-            $models = Model::with('user', 'siswa')->latest()->paginate(50);
-        }
 
+        $models = Model::with('user', 'siswa')->groupBy('siswa_id')->latest()->paginate(50);
 
         $data = [
             'models' => $models,
@@ -82,19 +78,19 @@ class TagihanController extends Controller
         $requestData = $request->validated();
         $biayaIdArray = $requestData['biaya_id'];
         $siswa = Siswa::query();
-        
+
         if ($requestData['kelas'] != '') {
             $siswa->where('kelas', $requestData['kelas']);
-        } 
+        }
         if ($requestData['angkatan'] != '') {
             $siswa->where('angkatan', $requestData['angkatan']);
         }
         $siswa = $siswa->get();
 
-        foreach($siswa as $item) {
+        foreach ($siswa as $item) {
             $itemSiswa = $item;
             $biaya = Biaya::whereIn('id', $biayaIdArray)->get();
-            foreach($biaya as $itemBiaya) {
+            foreach ($biaya as $itemBiaya) {
                 $dataTagihan = [
                     'siswa_id' => $itemSiswa->id,
                     'angkatan' => $requestData['angkatan'],
@@ -117,7 +113,7 @@ class TagihanController extends Controller
                 if ($cekTagihan == null) {
                     Model::create($dataTagihan);
                 }
-            }   
+            }
         }
 
         flash('Data tagihan berhasil disimpan')->success();

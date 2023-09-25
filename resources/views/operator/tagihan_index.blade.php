@@ -22,19 +22,21 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Biaya</th>
-                                    <th>Jumlah</th>
+                                    <th>NISN</th>
+                                    <th>Nama Siswa </th>
+                                    <th>Tanggal Tagihan</th>
+                                    <th>Status</th>
                                     <th>Created By</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($models as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->formatRupiah('jumlah') }}</td>
-                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->siswa->nisn }}</td>
+                                        <td>{{ $item->siswa->nama }}</td>
+                                        <td>{{ $item->tanggal_tagihan }}</td>
+                                        <td>{{ $item->status }}</td>
                                         <td>
                                             {!! Form::open([
                                                 'route' => [$routePrefix . '.destroy', $item->id],
