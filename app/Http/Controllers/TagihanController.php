@@ -25,8 +25,16 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-
-        $models = Model::with('user', 'siswa')->groupBy('siswa_id')->latest()->paginate(50);
+        if ($request->filled('bulan') && $request->filled('tahun')) {
+            $models = Model::with('user', 'siswa')
+                ->whereMonth('tanggal_tagihan', $request->bulan)
+                ->whereYear('tanggal_tagihan', $request->tahun)
+                ->groupBy('siswa_id')
+                ->latest()
+                ->paginate(50);
+        } else {
+            $models = Model::with('user', 'siswa')->groupBy('siswa_id')->latest()->paginate(50);
+        }
 
         $data = [
             'models' => $models,

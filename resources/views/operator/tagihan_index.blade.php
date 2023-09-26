@@ -15,10 +15,10 @@
                         <div class="col-md-6">
                             {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-4 col-sm-12">
                                     {!! Form::selectMonth('bulan', request('bulan'), ['class' => 'form-control']) !!}
                                 </div>
-                                <div class="col">
+                                <div class="col-md-4 col-sm-12">
                                     {!! Form::selectRange('tahun', 2022, date('Y')+1, request('tahun'), ['class' => 'form-control']) !!}
                                 </div>
                                 <div class="col">
