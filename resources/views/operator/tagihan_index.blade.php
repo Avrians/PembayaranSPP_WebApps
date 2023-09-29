@@ -53,12 +53,17 @@
                                                     'method' => 'delete',
                                                     'onsubmit' => 'return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini?\')',
                                                 ]) !!}
-                                                <a href="{{ route($routePrefix . '.edit', $item->id) }}"
+                                                {{-- <a href="{{ route($routePrefix . '.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning">
                                                     <i class="fa fa-edit"></i> Edit
-                                                </a>
-                                                <a href="{{ route($routePrefix . '.show', $item->id) }}"
-                                                    class="btn btn-sm btn-info">
+                                                </a> --}}
+                                                <a href="{{ route($routePrefix . '.show',  [
+                                                    $item->siswa_id,
+                                                    'siswa_id' => $item->siswa_id,
+                                                    'bulan' => $item->tanggal_tagihan->format('m'),
+                                                    'tahun' => $item->tanggal_tagihan->format('Y'),
+                                                ]) }}"
+                                                    class="btn btn-sm btn-info mx-3">
                                                     <i class="fa fa-edit"></i> Detail
                                                 </a>
                                                 <button type="submit" class="btn btn-sm btn-danger">
