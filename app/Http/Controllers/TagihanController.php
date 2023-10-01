@@ -140,7 +140,10 @@ class TagihanController extends Controller
         ->whereMonth('tanggal_tagihan', $request->bulan)
         ->whereYear('tanggal_tagihan', $request->tahun)
         ->get();
-        dd($tagihan);
+
+        $data['tagihan'] = $tagihan;
+        $data['siswa'] = $tagihan->first()->siswa;
+        return view('operator.' . $this->viewShow, $data);
     }
 
     /**
