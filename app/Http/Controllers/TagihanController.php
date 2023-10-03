@@ -143,6 +143,7 @@ class TagihanController extends Controller
 
         $data['tagihan'] = $tagihan;
         $data['siswa'] = $tagihan->first()->siswa;
+        $data['periode'] = Carbon::parse($tagihan->first()->tanggal_tagihan)->translatedFormat('F Y');
         return view('operator.' . $this->viewShow, $data);
     }
 

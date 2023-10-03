@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">DATA SISWA</h5>
+                <h5 class="card-header">DATA TAGIHAN SPP SISWA {{ strtoupper($periode) }}</h5>
 
                 <div class="card-body">
                     <table class="table table-sm">
@@ -20,6 +20,28 @@
                             <td>: {{ $siswa->nama }}</td>
                         </tr>
                       </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-5">
+            <div class="card">
+                <h5 class="card-header">
+                    DATA TAGIHAN
+                </h5>
+                <div class="card-body">
+                    Data Tagihan
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <h5 class="card-header">
+                    KARTU SPP
+                </h5>
+                <div class="card-body">
+                    Kartu SPP
                 </div>
             </div>
         </div>
